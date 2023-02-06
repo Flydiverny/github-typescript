@@ -25,7 +25,7 @@ runs:
         INPUT_BODY: ${{ inputs.body }}
         INPUT_FILE: ${{ inputs.file }}
       with:
-        script-file: ${{ github.action_path }}/script.ts
+        script-file: ${{ github.action_path }}/script.mts
         # script: |
         #   const script = require('${{ github.action_path }}/script.js')
         #   await script({ github, context, core })
