@@ -55,6 +55,6 @@ runs:
           const path = require('path')
           const file = '${{ inputs.script-file }}'
           const org = path.basename('${{ inputs.script-file }}')
-          const new = org.replace('ts', 'js').replace('mts', 'js')
-          const script = require(file.replace(org, new))
+          const fixed = org.replace('ts', 'js').replace('mts', 'js')
+          const script = require(file.replace(org, fixed))
           await script({ github, context, core })
