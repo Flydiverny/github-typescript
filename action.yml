@@ -35,6 +35,7 @@ inputs:
 outputs:
   result:
     description: The return value of the script, stringified with `JSON.stringify`
+    value: ${{ steps.exec.outputs.result }}
 runs:
   using: composite
   steps:
@@ -45,6 +46,7 @@ runs:
         node transform.js
 
     - uses: actions/github-script@v6
+      id: exec
       with:
         script: |
           const script = require('${{ inputs.script-file }}'.replace('ts', 'js').replace('mts', 'js'))
