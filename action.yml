@@ -43,3 +43,9 @@ runs:
         SCRIPT_FILE: ${{ inputs.script-file }}
       run: |
         node transform.js
+
+    - uses: actions/github-script@v6
+      with:
+        script: |
+          const script = require('${{ inputs.script-file }}'.replace('ts', 'js').replace('mts', 'js'))
+          await script({ github, context, core })
