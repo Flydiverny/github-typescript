@@ -1,0 +1,30 @@
+name: upsert-comment
+description: Action to create or update an existing pull request comment.
+
+inputs:
+  upsert:
+    description: Update the same comment on consecutive runs
+    required: false
+    default: "true"
+
+  body:
+    description: String which should be used as comment body, first line will be used for upserting
+    required: false
+
+  file:
+    description: Absolute file path which should be loaded to set the body
+    required: false
+
+runs:
+  using: composite
+  steps:
+    - uses: ./
+      env:
+        # Inject as "input" so script can reach them
+        INPUT_UPSERT: ${{ inputs.upsert }}
+        INPUT_BODY: ${{ inputs.body }}
+        INPUT_FILE: ${{ inputs.file }}
+      with:
+        script: |
+          const script = require('${{ github.action_path }}/script.js')
+          await script({ github, context, core })
