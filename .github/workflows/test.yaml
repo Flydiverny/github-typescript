@@ -16,7 +16,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - uses: ./.github/actions/upsert-comment
+      - uses: ./.github/actions/something
         with:
-          body: "Nice demo run"
+          something: "Nice demo run"
 
