@@ -44,6 +44,10 @@ runs:
         SCRIPT_FILE: ${{ inputs.script-file }}
       run: |
         node transform.js
+        ls -la ${{ github.action_path }}
+        ls -la ${{ inputs.script-file }}
+
+
 
     - uses: actions/github-script@v6
       id: exec
