@@ -46,8 +46,6 @@ runs:
         node transform.js
         ls -la /home/runner/work/ts-script/ts-script/./.github/actions/upsert-comment/
 
-
-
     - uses: actions/github-script@v6
       id: exec
       with:
@@ -57,4 +55,14 @@ runs:
           const org = path.basename('${{ inputs.script-file }}')
           const fixed = org.replace('mts', 'js').replace('ts', 'js')
           const { default: run } = require(file.replace(org, fixed))
-          return await run({ github, core, exec })
+          return await run({
+            require: wrapRequire,
+            __original_require__: __non_webpack_require__,
+            github,
+            context,
+            core,
+            exec,
+            glob,
+            io,
+            fetch
+          })
