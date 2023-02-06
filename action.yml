@@ -5,6 +5,9 @@ branding:
   icon: code
   color: purple
 inputs:
+  script-file:
+    description: The script to run
+    required: true
   script:
     description: The script to run
     required: true
@@ -37,4 +40,4 @@ runs:
   steps:
     - shell: bash
       run: |
-        ./node_modules/.bin/esbuild input.ts --platform=node --target=es2022 --bundle --outdir=dist/
+        ./node_modules/.bin/esbuild ${{ inputs.script-file }} --platform=node --target=es2022 --bundle --outdir=dist/

@@ -7,22 +7,9 @@ on:
       - 'releases/*'
 
 jobs:
-  build:
+  run:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run: |
-          npm install
-      - run: |
-          npm run all
+      - uses: ./actions/upsert-comment
 
-  run:
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu-latest, ubuntu-20.04, ubuntu-22.04]
-    runs-on: ${{ matrix.os }}
-    steps:
-      - uses: actions/checkout@v3
-      - uses: ./
-      - run: git-crypt version
