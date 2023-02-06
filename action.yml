@@ -56,8 +56,8 @@ runs:
           const fixed = org.replace('mts', 'js').replace('ts', 'js')
           const { default: run } = require(file.replace(org, fixed))
           return await run({
-            require: wrapRequire,
-            __original_require__: __non_webpack_require__,
+            require,
+            __original_require__,
             github,
             context,
             core,
