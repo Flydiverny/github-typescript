@@ -44,7 +44,6 @@ runs:
         SCRIPT_FILE: ${{ inputs.script-file }}
       run: |
         node transform.js
-        ls -la /home/runner/work/ts-script/ts-script/./.github/actions/upsert-comment/
 
     - uses: actions/github-script@v6.4.0
       id: exec
