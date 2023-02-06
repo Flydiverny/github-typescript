@@ -4,5 +4,6 @@ require("esbuild").buildSync({
   bundle: true,
   platform: "node",
   packages: "external",
+  absWorkingDir: path.dirname(process.env.SCRIPT_FILE),
   outdir: path.dirname(process.env.SCRIPT_FILE),
 });
