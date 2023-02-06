@@ -56,5 +56,5 @@ runs:
           const file = '${{ inputs.script-file }}'
           const org = path.basename('${{ inputs.script-file }}')
           const fixed = org.replace('mts', 'js').replace('ts', 'js')
-          const { default: run } = await import(file.replace(org, fixed))
+          const { default: run } = require(file.replace(org, fixed))
           return await run({ github, core, exec })
