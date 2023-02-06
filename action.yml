@@ -46,7 +46,7 @@ runs:
         node transform.js
         ls -la /home/runner/work/ts-script/ts-script/./.github/actions/upsert-comment/
 
-    - uses: actions/github-script@v6
+    - uses: actions/github-script@v6.4.0
       id: exec
       with:
         github-token: ${{inputs.github-token}}
