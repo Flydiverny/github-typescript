@@ -39,5 +39,7 @@ runs:
   using: composite
   steps:
     - shell: bash
+      env:
+        SCRIPT_FILE: ${{ inputs.script-file }}
       run: |
-        ./node_modules/.bin/esbuild ${{ inputs.script-file }} --platform=node --target=es2022 --bundle --outdir=dist/
+        node transform.js
