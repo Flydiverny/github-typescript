@@ -1,11 +1,11 @@
 // get boolean input doesn't work for optional field
 // see issue: https://github.com/actions/toolkit/issues/844
-const isTrue = (val) => {
+const isTrue = (val: string) => {
   const b = val.toLowerCase();
   return b === "1" || b === "t" || b === "true" || b === "y" || b === "yes";
 };
 
-const tryParse = (str) => {
+const tryParse = (str: string): string | undefined => {
   if (!str) return;
 
   try {
@@ -19,18 +19,20 @@ export default async ({ github, context, core }) => {
   const upsert = isTrue(core.getInput("upsert") || "true");
   core.info(`Will upsert: ${upsert}`);
   let body = tryParse(core.getInput("body"));
-  const file = core.getInput("file");
+  const file: string = core.getInput("file");
 
   if (!(!file ^ !body)) {
     throw new Error("Either 'file' or 'body' must be set");
   }
 
+  body ??= "";
+
   if (file) {
-    const { promises: fs } = require("fs");
+    const { promises: fs } = require("node:fs");
     body = await fs.readFile(file, "utf-8");
   }
 
-  const [title] = body.split("\n");
+  const [title] = body!.split("\n");
 
   if (upsert) {
     core.info(`Will look for comment with title:`);
@@ -50,7 +52,7 @@ export default async ({ github, context, core }) => {
     (comment) => comment.body.search(titleRegexp) === 0
   );
 
-  if (body.length > 65536) {
+  if (body!.length > 65536) {
     body = `${title}\n\nThis comment was automatically stripped by the upsert-comment action as it exceeds the 65536 character limit.`;
   }
 
