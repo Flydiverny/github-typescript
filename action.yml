@@ -49,6 +49,13 @@ runs:
     - uses: actions/github-script@v6
       id: exec
       with:
+        github-token: ${{inputs.github-token}}
+        debug: ${{inputs.debug}}
+        user-agent: ${{inputs.user-agent}}
+        previews: ${{inputs.previews}}
+        result-encoding: ${{inputs.result-encoding}}
+        retries: ${{inputs.retries}}
+        retry-exempt-status-codes: ${{inputs.retry-exempt-status-codes}}
         script: |
           const path = require('path')
           const file = '${{ inputs.script-file }}'
