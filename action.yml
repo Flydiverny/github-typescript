@@ -1,0 +1,71 @@
+name: 'ts-script'
+description: 'Run github-script using typescript'
+author: 'Flydiverny'
+branding:
+  icon: code
+  color: purple
+inputs:
+  script-file:
+    description: The script to run
+    required: true
+  github-token:
+    description: The GitHub token used to create an authenticated client
+    default: ${{ github.token }}
+    required: false
+  debug:
+    description: Whether to tell the GitHub client to log details of its requests
+    default: false
+  user-agent:
+    description: An optional user-agent string
+    default: actions/github-script
+  previews:
+    description: A comma-separated list of API previews to accept
+  result-encoding:
+    description: Either "string" or "json" (default "json")—how the result will be encoded
+    default: json
+  retries:
+    description: The number of times to retry a request
+    default: "0"
+  retry-exempt-status-codes:
+    description: A comma separated list of status codes that will NOT be retried e.g. "400,500". No effect unless `retries` is set
+    default: 400,401,403,404,422 # from https://github.com/octokit/plugin-retry.js/blob/9a2443746c350b3beedec35cf26e197ea318a261/src/index.ts#L14
+outputs:
+  result:
+    description: The return value of the script, stringified with `JSON.stringify`
+    value: ${{ steps.exec.outputs.result }}
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      env:
+        SCRIPT_FILE: ${{ inputs.script-file }}
+      run: |
+        node transform.js
+
+    - uses: actions/github-script@v6.4.0
+      id: exec
+      with:
+        github-token: ${{inputs.github-token}}
+        debug: ${{inputs.debug}}
+        user-agent: ${{inputs.user-agent}}
+        previews: ${{inputs.previews}}
+        result-encoding: ${{inputs.result-encoding}}
+        retries: ${{inputs.retries}}
+        retry-exempt-status-codes: ${{inputs.retry-exempt-status-codes}}
+        script: |
+          const path = require('path')
+          const file = '${{ inputs.script-file }}'
+          const org = path.basename('${{ inputs.script-file }}')
+          const fixed = org.replace('mts', 'js').replace('ts', 'js')
+          const { default: run } = require(file.replace(org, fixed))
+          return await run({
+            require,
+            __original_require__,
+            github,
+            context,
+            core,
+            exec,
+            glob,
+            io,
+            fetch
+          })
