@@ -1,4 +1,4 @@
-name: 'ts-script'
+name: github-typescript
 description: 'Run github-script using typescript'
 author: 'Flydiverny'
 branding:
