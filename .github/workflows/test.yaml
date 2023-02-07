@@ -16,7 +16,16 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - uses: ./.github/actions/something
+      - uses: ./ # flydiverny/ts-script@main
+        name: Testing MTS extension
+        env:
+          INPUT_SOMETHING: "Nice *.mts demo run"
         with:
-          something: "Nice demo run"
+          script-file: .github/workflows/script.mts
 
+      - uses: ./ # flydiverny/ts-script@main
+        name: Testing TS extension
+        env:
+          INPUT_SOMETHING: "Nice *.ts demo run"
+        with:
+          script-file: .github/workflows/script.ts
