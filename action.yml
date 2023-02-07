@@ -58,7 +58,7 @@ runs:
           const org = path.basename('${{ inputs.script-file }}')
           const fixed = org.replace('mts', 'js').replace('ts', 'js')
           const { default: run } = require(file.replace(org, fixed))
-          return await run({
+          const globals = {
             require,
             __original_require__,
             github,
@@ -68,4 +68,6 @@ runs:
             glob,
             io,
             fetch
-          })
+          }
+          Object.assign(global, globals)
+          return await run(globals)
