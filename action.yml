@@ -55,8 +55,6 @@ runs:
         script: |
           const path = require('path')
           const file = '${{ inputs.script-file }}'
-          const org = path.basename('${{ inputs.script-file }}')
-          const fixed = org.replace('mts', 'js').replace('ts', 'js')
 
           const globals = {
             require,
@@ -71,7 +69,7 @@ runs:
           }
 
           Object.assign(global, globals)
-          const { default: run } = require(file.replace(org, fixed))
+          const { default: run } = require(file.replace(/\.[^/.]+$/, "js"))
 
           if (run) {
             return await run(globals)
