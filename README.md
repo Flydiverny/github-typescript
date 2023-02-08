@@ -1,5 +1,7 @@
 # github-typescript
 
+:warning: Note that this action currently only supports running on linux x64 runners.
+
 Using [actions/github-script](https://github.com/actions/github-script) but missing typescript?
 
 Enter github-typescript! A wrapper that will quickly transpile your TypeScript and execute it using github-script.
