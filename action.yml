@@ -46,6 +46,7 @@ runs:
           --outdir=$(dirname "${SCRIPT_FILE}") \
           --packages=external \
           --format=esm \
+          --out-extension:.js=.mjs \
           --platform=node
 
     - uses: actions/github-script@v6.4.0
