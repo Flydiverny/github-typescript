@@ -4,7 +4,7 @@ export default async ({ github, context, core }) => {
   const something: string = core.getInput("something");
   core.info(`Got input: ${something}`);
 
-  myFunc(core);
+  myFunc();
 
   const payload: { owner: string; repo: string; body: string } = {
     owner: context.repo.owner,
