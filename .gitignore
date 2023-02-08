@@ -1,1 +1,3 @@
 .github/workflows/*.js
+.github/workflows/*.mjs
+.github/workflows/*.cjs
