@@ -1,4 +1,6 @@
+// By random tests this will execute faster as *.cjs than being refactored to *.mjs
 const path = require("path");
+
 require("esbuild").buildSync({
   entryPoints: [process.env.SCRIPT_FILE],
   bundle: true,
