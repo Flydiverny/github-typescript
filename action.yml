@@ -37,21 +37,16 @@ runs:
   using: composite
   steps:
     - shell: bash
+      name: transform TS using esbuild
       env:
         SCRIPT_FILE: ${{ inputs.script-file }}
       run: |
-        time ./node_modules/esbuild/bin/esbuild $SCRIPT_FILE \
+        ./node_modules/@esbuild/linux-x64/bin/esbuild $SCRIPT_FILE \
           --bundle \
           --outdir=$(dirname "${SCRIPT_FILE}") \
           --packages=external \
           --format=esm \
           --platform=node
-
-    - shell: bash
-      env:
-        SCRIPT_FILE: ${{ inputs.script-file }}
-      run: |
-        time node ./transform.cjs
 
     - uses: actions/github-script@v6.4.0
       id: exec
@@ -80,7 +75,7 @@ runs:
           }
 
           Object.assign(global, globals)
-          const { default: run } = require(file.replace(/\.[^/.]+$/, "js"))
+          const { default: run } = require(file.replace(/\.[^/.]+$/, ".js"))
 
           if (run) {
             return await run(globals)
