@@ -76,7 +76,7 @@ runs:
           }
 
           Object.assign(global, globals)
-          const { default: run } = await import(path.resolve(file.replace(/\.[^/.]+$/, ".js")))
+          const { default: run } = await import(path.resolve(file.replace(/\.[^/.]+$/, ".mjs")))
 
           if (run) {
             return await run(globals)
