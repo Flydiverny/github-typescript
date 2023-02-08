@@ -40,7 +40,7 @@ runs:
       env:
         SCRIPT_FILE: ${{ inputs.script-file }}
       run: |
-        node transform.js
+        node ./transform.cjs
 
     - uses: actions/github-script@v6.4.0
       id: exec
