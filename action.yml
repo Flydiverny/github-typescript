@@ -41,7 +41,7 @@ runs:
       env:
         SCRIPT_FILE: ${{ inputs.script-file }}
       run: |
-        ./node_modules/@esbuild/linux-x64/bin/esbuild $SCRIPT_FILE \
+        ${{ github.action_path }}/node_modules/@esbuild/linux-x64/bin/esbuild $SCRIPT_FILE \
           --bundle \
           --outdir=$(dirname "${SCRIPT_FILE}") \
           --packages=external \
