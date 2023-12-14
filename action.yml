@@ -49,7 +49,7 @@ runs:
           --out-extension:.js=.mjs \
           --platform=node
 
-    - uses: actions/github-script@v6
+    - uses: actions/github-script@v7
       id: exec
       with:
         github-token: ${{inputs.github-token}}
