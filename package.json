@@ -1,5 +1,5 @@
 {
   "dependencies": {
-    "@esbuild/linux-x64": "^0.19.10"
+    "@esbuild/linux-x64": "^0.20.0"
   }
 }
